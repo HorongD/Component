@@ -1,0 +1,2 @@
+# Component
+React sample component
