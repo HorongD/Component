@@ -5,7 +5,7 @@ import { InstructionTest } from "./components/pages/InstructionTest";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="Component">
       <Route exact path="/" component={Home} />
       <Route path="/instruction" component={InstructionTest} />
     </BrowserRouter>
