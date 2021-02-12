@@ -1,11 +1,14 @@
 import React from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+import { Home } from "./components/pages/Home";
 import { InstructionTest } from "./components/pages/InstructionTest";
 
 function App() {
   return (
-    <div className="App">
-      <InstructionTest />
-    </div>
+    <BrowserRouter>
+      <Route exact path="/" component={Home} />
+      <Route path="/instruction" component={InstructionTest} />
+    </BrowserRouter>
   );
 }
 
