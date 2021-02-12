@@ -1,19 +1,6 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from "react";
 
-import {
-  Area,
-  BlendLayer,
-  ButtonGroup,
-  Comment,
-  CommentBox,
-  CommentHeader,
-  CommentLayer,
-  Line,
-  Next,
-  StartComment,
-  StartLayer,
-  WhiteArea,
-} from './styled';
+import { Area, BlendLayer, ButtonGroup, Comment, CommentBox, CommentHeader, CommentLayer, Line, Next, StartComment, StartLayer, WhiteArea } from "./styled";
 
 interface Item {
   groupNumber?: number;
@@ -66,16 +53,16 @@ const Instruction = ({ show, items }: Props): ReactElement => {
 
   function closeStart() {
     setIsStartShow(false);
-    const html = document.querySelector('html');
+    const html = document.querySelector("html");
 
     if (html) {
       setHeight(html.scrollHeight);
     }
 
-    const body = document.querySelector('body');
+    const body = document.querySelector("body");
 
     if (body) {
-      body.style.overflow = 'auto';
+      body.style.overflow = "auto";
     }
   }
 
@@ -99,18 +86,19 @@ const Instruction = ({ show, items }: Props): ReactElement => {
 
   useEffect(() => {
     if (show) {
-      setIsStartShow(show);
-      const body = document.querySelector('body');
-
+      const body = document.querySelector("body");
       if (body) {
-        body.style.overflow = 'hidden';
+        window.scrollTo(0, 0);
+        body.style.overflow = "hidden";
+        setIsStartShow(show);
       }
     }
 
     window.onresize = function () {
+      window.scrollTo(0, 0);
       setDomList(toRectList(items));
       setShowIndex(0);
-      const html = document.querySelector('html');
+      const html = document.querySelector("html");
 
       if (html) {
         setHeight(html.scrollHeight);
@@ -127,17 +115,12 @@ const Instruction = ({ show, items }: Props): ReactElement => {
       {isStartShow && (
         <StartLayer height={null}>
           <StartComment>
-            <CommentHeader>
-              {/* <CloseIcon
+            <CommentHeader>{/* <CloseIcon
                 onClick={() => {
                   closeStart();
                 }}
-              /> */}
-            </CommentHeader>
-            <div>
-              안녕하세요? 웹서비스에 오신것을 환영합니다. 사용법을 알고 싶다면,
-              다음 버튼을 클릭해주세요.
-            </div>
+              /> */}</CommentHeader>
+            <div>안녕하세요? 웹서비스에 오신것을 환영합니다. 사용법을 알고 싶다면, 다음 버튼을 클릭해주세요.</div>
             <Line></Line>
             <ButtonGroup>
               <Next
@@ -157,13 +140,7 @@ const Instruction = ({ show, items }: Props): ReactElement => {
         <>
           <BlendLayer height={height}>
             {domList?.map((rect, i) => {
-              return (
-                <Area
-                  key={i}
-                  rect={rect}
-                  show={showIndex === rect.groupNumber}
-                ></Area>
-              );
+              return <Area key={i} rect={rect} show={showIndex === rect.groupNumber}></Area>;
             })}
           </BlendLayer>
           <CommentLayer
@@ -174,15 +151,11 @@ const Instruction = ({ show, items }: Props): ReactElement => {
           >
             {domList?.map((rect, i) => {
               return (
-                <WhiteArea
-                  key={i}
-                  rect={rect}
-                  show={showIndex === rect.groupNumber}
-                >
+                <WhiteArea key={i} rect={rect} show={showIndex === rect.groupNumber}>
                   <CommentBox>
                     <Comment type={rect.type}>
                       <div>
-                        {rect.message.split('\n').map((line, i) => (
+                        {rect.message.split("\n").map((line, i) => (
                           <div key={i}>{line}</div>
                         ))}
                       </div>

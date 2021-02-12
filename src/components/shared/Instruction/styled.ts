@@ -1,9 +1,9 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
-import { device } from '../../../theme';
-import { col } from '../../styled';
+import { device } from "../../../theme";
+import { col } from "../../styled";
 
-const background = '#FF6767';
+const background = "#FF6767";
 
 const layer = styled.div<{ height: number | null }>`
   position: absolute;
@@ -56,11 +56,13 @@ const area = styled.div<AreaType>`
 const topLeftComment = css`
   top: initial;
   bottom: calc(100% + 30px);
-  left: initial;
+  left: 0;
   right: initial;
   &:after {
-    left: 10%;
     top: 100%;
+    bottom: initial;
+    left: 10%;
+    right: initial;
     border-top: 20px solid ${background};
     border-bottom: none;
     border-left: 20px solid transparent;
@@ -72,10 +74,12 @@ const topRightComment = css`
   top: initial;
   bottom: calc(100% + 30px);
   left: initial;
-  right: initial;
+  right: 0;
   &:after {
-    left: 10%;
     top: 100%;
+    bottom: initial;
+    left: initial;
+    right: 10%;
     border-top: 20px solid ${background};
     border-bottom: none;
     border-left: 20px solid transparent;
@@ -123,8 +127,10 @@ const leftComment = css`
   left: initial;
   right: calc(100% + 30px);
   &:after {
-    left: 100%;
-    top: 10px;
+    top: 10%;
+    bottom: initial;
+    left: calc(100% - 5px);
+    right: initial;
     border-top: 20px solid transparent;
     border-bottom: 20px solid transparent;
     border-left: 20px solid ${background};
@@ -138,8 +144,10 @@ const rightComment = css`
   left: calc(100% + 30px);
   right: initial;
   &:after {
-    left: -40px;
-    top: 10px;
+    top: 10%;
+    bottom: initial;
+    left: initial;
+    right: calc(100% - 5px);
     border-top: 20px solid transparent;
     border-bottom: 20px solid transparent;
     border-left: none;
@@ -195,7 +203,7 @@ export const Comment = styled.div<{ type: string }>`
   background-color: ${background};
   width: 200px;
   &:after {
-    content: '';
+    content: "";
     position: absolute;
     width: 0;
     height: 0;
@@ -207,44 +215,72 @@ export const Comment = styled.div<{ type: string }>`
   }
 
   ${({ type }) => {
-    if (type === 'topLeft') {
+    if (type === "topLeft") {
       return css`
         ${topLeftComment}
       `;
-    } else if (type === 'topRight') {
+    } else if (type === "topRight") {
       return css`
         ${topRightComment}
       `;
-    } else if (type === 'bottomLeft') {
+    } else if (type === "bottomLeft") {
       return css`
         ${bottomLeftComment}
       `;
-    } else if (type === 'bottomRight') {
+    } else if (type === "bottomRight") {
       return css`
         ${bottomRightComment}
       `;
-    } else if (type === 'left-to-bottomLeft') {
+    } else if (type === "left-to-topLeft") {
+      return css`
+        ${topLeftComment}
+        @media ${device.md} {
+          ${leftComment}
+        }
+      `;
+    } else if (type === "left-to-topRight") {
+      return css`
+        ${topRightComment}
+        @media ${device.md} {
+          ${leftComment}
+        }
+      `;
+    } else if (type === "left-to-bottomLeft") {
       return css`
         ${bottomLeftComment}
         @media ${device.md} {
           ${leftComment}
         }
       `;
-    } else if (type === 'left-to-bottomRight') {
+    } else if (type === "left-to-bottomRight") {
       return css`
         ${bottomRightComment}
         @media ${device.md} {
           ${leftComment}
         }
       `;
-    } else if (type === 'right-to-bottomLeft') {
+    } else if (type === "right-to-topLeft") {
+      return css`
+        ${topLeftComment}
+        @media ${device.md} {
+          ${rightComment}
+        }
+      `;
+    } else if (type === "right-to-topRight") {
+      return css`
+        ${topRightComment}
+        @media ${device.md} {
+          ${rightComment}
+        }
+      `;
+    } else if (type === "right-to-bottomLeft") {
       return css`
         ${bottomLeftComment}
         @media ${device.md} {
           ${rightComment}
         }
       `;
-    } else if (type === 'right-to-bottomRight') {
+    } else if (type === "right-to-bottomRight") {
       return css`
         ${bottomRightComment}
         @media ${device.md} {
