@@ -12,6 +12,9 @@ export const Home = (props: Props) => {
       <li>
         <Link to="/smooth">스무스</Link>
       </li>
+      <li>
+        <Link to="/smooth">트리</Link>
+      </li>
     </ul>
   );
 };
