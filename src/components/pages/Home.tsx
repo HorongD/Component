@@ -13,7 +13,7 @@ export const Home = (props: Props) => {
         <Link to="/smooth">스무스</Link>
       </li>
       <li>
-        <Link to="/smooth">트리</Link>
+        <Link to="/tree">트리</Link>
       </li>
     </ul>
   );

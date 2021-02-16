@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { TreeView, TreeList, TreeItem, TreeLink } from './styled';
+import { SiGumtree } from 'react-icons/si';
+import { RiLeafLine } from 'react-icons/ri';
 
 interface Item {
   id: string;
   parentId: string | null;
   children?: Item[];
+  level: number;
 }
 
 interface Props {
@@ -16,8 +19,8 @@ export const Tree = ({ list }: Props) => {
 
   useEffect(() => {
     setTreeData(toTree(list, null));
-  }, [list])
-  
+  }, [list]);
+
   function toTree(listData: Item[], rootId: string | null) {
     const rootNodes: Item[] = [];
 
@@ -63,8 +66,19 @@ export const Tree = ({ list }: Props) => {
       if (hasChildren) {
         children = toTreeDOM(treeItemData.children);
         return (
-          <TreeItem key={treeItemData.id}>
-            <TreeLink href='/'>{treeItemData.id}</TreeLink>
+          <TreeItem key={treeItemData.id} onClick={e => {
+            e.currentTarget.classList.toggle('on')
+          }}>
+            <TreeLink
+              href='#'
+              level={treeItemData.level}
+              onClick={(e) => {
+                e.currentTarget.classList.toggle('on');
+              }}
+            >
+              <SiGumtree />
+              {treeItemData.id}
+            </TreeLink>
             <TreeList>
               <TreeItem>{children}</TreeItem>
             </TreeList>
@@ -73,7 +87,10 @@ export const Tree = ({ list }: Props) => {
       } else {
         return (
           <TreeItem key={treeItemData.id}>
-            <TreeLink href='/'>{treeItemData.id}</TreeLink>
+            <TreeLink href='#' level={treeItemData.level}>
+              <RiLeafLine />
+              {treeItemData.id}
+            </TreeLink>
           </TreeItem>
         );
       }
