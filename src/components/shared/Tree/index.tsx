@@ -21,41 +21,15 @@ export const Tree = ({ list }: Props) => {
     setTreeData(toTree(list, null));
   }, [list]);
 
-  function toTree(listData: Item[], rootId: string | null) {
-    const rootNodes: Item[] = [];
-
-    function setChildren(
-      nodes: Item[] | undefined,
-      item: Item,
-      index: number
-    ): any {
-      if (nodes instanceof Array) {
-        return nodes.some(function (node) {
-          const isMyChild = node.id === item.parentId;
-          if (isMyChild) {
-            node.children = node.children || [];
-            const child = listData.splice(index, 1)[0];
-            return node.children.push(child);
-          }
-          return setChildren(node.children, item, index);
-        });
-      }
-    }
-
-    while (listData.length > 0) {
-      listData.some(function (item, index) {
-        const isRoot = item.parentId === rootId;
-        if (isRoot) {
-          const root = listData.splice(index, 1)[0];
-          return rootNodes.push(root);
-        }
-        return setChildren(rootNodes, item, index);
-      });
-    }
-
-    return rootNodes;
+  function toTree(treeItems: Item[], id: string | null): Item[] {
+    return treeItems
+      .filter((treeItem) => treeItem.parentId === id)
+      .map((treeItem) => ({
+        ...treeItem,
+        children: toTree(treeItems, treeItem.id),
+      }));
   }
-
+  
   function toTreeDOM(treeItems: Item[] | undefined) {
     return treeItems?.map((treeItemData) => {
       let children;
@@ -66,9 +40,12 @@ export const Tree = ({ list }: Props) => {
       if (hasChildren) {
         children = toTreeDOM(treeItemData.children);
         return (
-          <TreeItem key={treeItemData.id} onClick={e => {
-            e.currentTarget.classList.toggle('on')
-          }}>
+          <TreeItem
+            key={treeItemData.id}
+            onClick={(e) => {
+              e.currentTarget.classList.toggle('on');
+            }}
+          >
             <TreeLink
               href='#'
               level={treeItemData.level}
