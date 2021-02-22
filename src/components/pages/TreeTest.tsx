@@ -6,14 +6,22 @@ interface Props {}
 export const TreeTest = (props: Props) => {
   return (
     <Tree
-      list={[
+      tree={[
         {
           level: 0,
           id: '1',
           parentId: null,
           children: [
             { level: 1, id: '10', parentId: '1' },
-            { level: 1, id: '11', parentId: '1' },
+            {
+              level: 1,
+              id: '11',
+              parentId: '1',
+              children: [
+                { level: 2, id: '111', parentId: '11' },
+                { level: 2, id: '112', parentId: '11' },
+              ],
+            },
           ],
         },
         {

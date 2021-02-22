@@ -6,29 +6,29 @@ import { RiLeafLine } from 'react-icons/ri';
 interface Item {
   id: string;
   parentId: string | null;
-  children?: Item[];
   level: number;
+  children?: Item[];
 }
 
 interface Props {
-  list: Item[];
+  tree: Item[];
 }
 
-export const Tree = ({ list }: Props) => {
+export const Tree = ({ tree }: Props) => {
   const [treeData, setTreeData] = useState<Item[]>([]);
 
   useEffect(() => {
-    setTreeData(toTree(list, null));
-  }, [list]);
+    setTreeData(tree);
+  }, [tree]);
 
-  function toTree(treeItems: Item[], id: string | null): Item[] {
-    return treeItems
-      .filter((treeItem) => treeItem.parentId === id)
-      .map((treeItem) => ({
-        ...treeItem,
-        children: toTree(treeItems, treeItem.id),
-      }));
-  }
+  // function toTree(treeItems: Item[], id: string | null): Item[] {
+  //   return treeItems
+  //     .filter((treeItem) => treeItem.parentId === id)
+  //     .map((treeItem) => ({
+  //       ...treeItem,
+  //       children: toTree(treeItems, treeItem.id),
+  //     }));
+  // }
   
   function toTreeDOM(treeItems: Item[] | undefined) {
     return treeItems?.map((treeItemData) => {
