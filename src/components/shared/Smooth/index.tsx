@@ -10,7 +10,7 @@ export const Smooth = (props: Props) => {
 
   useEffect(() => {
     smoothScroll();
-  }, []);
+  }, [smoothScroll]);
 
   return (
     <SmoothWrapper ref={wrapper}>
