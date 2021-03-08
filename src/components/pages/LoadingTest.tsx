@@ -4,7 +4,7 @@ import { Area, Loading } from '../shared/Loading';
 interface Props {}
 
 export const LoadingTest = ({}: Props): ReactElement => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [data, setData] = useState<string>();
 
   // 데이터 불러오기 함수 호출
