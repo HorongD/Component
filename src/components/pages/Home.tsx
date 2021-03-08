@@ -15,6 +15,9 @@ export const Home = (props: Props) => {
       <li>
         <Link to="/tree">트리</Link>
       </li>
+      <li>
+        <Link to="/loading">로딩</Link>
+      </li>
     </ul>
   );
 };
